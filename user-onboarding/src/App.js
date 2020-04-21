@@ -4,9 +4,19 @@ import './App.css';
 import Form from './Components/Form/Form';
 
 function App() {
+
+  // handle state when form is submitted
+  const sumbitForm = event => {
+    event.preventDefault();
+    console.log('form submitted!');
+  };
+
   return (
     <div className="App">
-      <Form/>
+      <form onSubmit={sumbitForm}> 
+        <Form/>
+      </form>
+      
     </div>
   );
 }

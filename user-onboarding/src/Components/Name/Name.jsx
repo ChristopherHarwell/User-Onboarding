@@ -8,6 +8,8 @@ const Name = (props) => {
                 <input
                     type='text'
                     name='name'
+                    value={props.value}
+                    onChange={props.input}
                 />
             </label>
             <br/>
