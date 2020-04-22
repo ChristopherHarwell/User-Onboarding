@@ -1,21 +1,21 @@
-import React from 'react';
+import React, {useState} from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Name from './Components/Name/Name';
+import Email from './Components/Email/Email';
+import Password from './Components/Password/Password';
+import CheckBox from './Components/TermsOfService/CheckBox';
+import Submit from './Components/SubmitButton/Submit';
 import Form from './Components/Form/Form';
 
 function App() {
 
-  // handle state when form is submitted
-  const sumbitForm = event => {
-    event.preventDefault();
-    console.log('form submitted!');
-  };
+
+
 
   return (
     <div className="App">
-      <form onSubmit={sumbitForm}> 
-        <Form/>
-      </form>
+      <Form/>
       
     </div>
   );

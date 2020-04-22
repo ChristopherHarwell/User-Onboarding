@@ -8,6 +8,8 @@ const Email = (props) => {
                 <input
                     type='text'
                     name='email'
+                    value={props.value}
+                    onChange={props.input}
                 />
             </label>
             <br/>

@@ -8,6 +8,8 @@ const Password = (props) => {
             <input
                 type='password'
                 name='password'
+                value={props.value}
+                onChange={props.input}
             />
         </label>
         <br/>

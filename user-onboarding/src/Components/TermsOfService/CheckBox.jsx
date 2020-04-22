@@ -4,10 +4,11 @@ const CheckBox = (props) => {
     return (
         <React.Fragment>
             <label htmlFor='checkbox'>
-                
                 <input
                     type='checkbox'
                     name='checkbox'
+                    value={props.value}
+                    onChange={props.input}
                 />
                 I agree to the terms and conditions
             </label>
