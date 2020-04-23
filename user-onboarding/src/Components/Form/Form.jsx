@@ -67,7 +67,6 @@ const Form = (props) => {
     event.preventDefault();
     axios.post("https://reqres.in/api/users", formState)
         .then(res => {
-            let response = res.data ;
             setUsers([res.data, ...users]);
      
             // clear state after submitting
@@ -81,7 +80,7 @@ const Form = (props) => {
         .catch(err => console.error(err.res)
     
     )};
-    console.log('success', users);
+    
   // submit button state
   const [buttonDisabled, setButtonDisabled] = useState(true);
 
