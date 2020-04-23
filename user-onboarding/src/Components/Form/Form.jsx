@@ -32,6 +32,7 @@ const Form = (props) => {
     // state for post requests
     const [users, setUsers] = useState([]);
 
+    
     // use yup to create form schema
     const formSchema = yup.object().shape({
         name: yup
@@ -67,25 +68,23 @@ const Form = (props) => {
     event.preventDefault();
     axios.post("https://reqres.in/api/users", formState)
         .then(res => {
-            // const response = res.data;
-            // setUsers({...users,
-            //     response
-            // });
-            users.push(setUsers(res.data))
-            //clear state after submitting
-            // setFormState({
-            //     name: '',
-            //     email: '',
-            //     password: '',
-            //     checkbox: '',
-            // })
+            const response = res.data ;
+            setUsers({response, ...users});
+     
+            // clear state after submitting
+            setFormState({
+                name: '',
+                email: '',
+                password: '',
+                checkbox: '',
+            })
 
-            
+            console.log('success', users);
         })
         .catch(err => console.error(err.res)
     
     )};
-    console.log('success', users);
+    
   // submit button state
   const [buttonDisabled, setButtonDisabled] = useState(true);
 
@@ -121,13 +120,8 @@ const Form = (props) => {
   };
 
 
-    const loopUsers = () => {
-        for(let user of Object.entries(users)) {
-            return(
-            <pre>{JSON.stringify(users, null, 2)}</pre>
-            );
-        };
-    };
+// convert users object to array and loop over it
+const userArray = Object.entries(users);
     return (
         <React.Fragment>
         <form onSubmit={sumbitForm}> 
@@ -158,7 +152,14 @@ const Form = (props) => {
             />
             {
             // need to figure out what i need to map over
-            loopUsers()
+            userArray.map((user) => {
+                
+                return (
+                    
+                <pre>{JSON.stringify(user, null, 2)}</pre>
+                )
+               
+            })
             // Object.getOwnPropertyNames(users)
 
             }
