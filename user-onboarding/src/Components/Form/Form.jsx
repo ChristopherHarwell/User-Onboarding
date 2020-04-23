@@ -25,14 +25,13 @@ const Form = (props) => {
         checkbox: false,
     })
 
-    // set initial user
-    const initialUser = [
-        { id: 124575, firstName: 'Chris', lastName: 'Harwell' },
-      ];
+
     // state for post requests
     const [users, setUsers] = useState([]);
 
-    
+    // set initial user
+    const [initialUser, setInitialUser] = useState([...users]);
+
     // use yup to create form schema
     const formSchema = yup.object().shape({
         name: yup
@@ -68,8 +67,8 @@ const Form = (props) => {
     event.preventDefault();
     axios.post("https://reqres.in/api/users", formState)
         .then(res => {
-            const response = res.data ;
-            setUsers({response, ...users});
+            let response = res.data ;
+            setUsers([res.data, ...users]);
      
             // clear state after submitting
             setFormState({
@@ -78,13 +77,11 @@ const Form = (props) => {
                 password: '',
                 checkbox: '',
             })
-
-            console.log('success', users);
         })
         .catch(err => console.error(err.res)
     
     )};
-    
+    console.log('success', users);
   // submit button state
   const [buttonDisabled, setButtonDisabled] = useState(true);
 
@@ -99,7 +96,7 @@ const Form = (props) => {
         .then(valid => {
           setButtonDisabled(!valid);
         })
-  }, [formSchema]);
+  }, [formState]);
 
   // validate changes based on schema
   const validateChange = event => {
@@ -122,6 +119,8 @@ const Form = (props) => {
 
 // convert users object to array and loop over it
 const userArray = Object.entries(users);
+
+
     return (
         <React.Fragment>
         <form onSubmit={sumbitForm}> 
@@ -151,17 +150,13 @@ const userArray = Object.entries(users);
                 input={inputChanged}
             />
             {
-            // need to figure out what i need to map over
-            userArray.map((user) => {
-                
-                return (
+                users.map(user => {
                     
-                <pre>{JSON.stringify(user, null, 2)}</pre>
-                )
-               
-            })
-            // Object.getOwnPropertyNames(users)
+                    return (
+                        <pre>{JSON.stringify(user, null, 2)}</pre>
 
+                    )
+                })
             }
             
             <Submit
@@ -169,11 +164,6 @@ const userArray = Object.entries(users);
                 input={inputChanged}
                 disabled={buttonDisabled}
             />
-       { 
-       
-
-      console.log('users: ', users.name)
-      }
         </form>
  
         </React.Fragment>
