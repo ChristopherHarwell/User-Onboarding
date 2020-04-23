@@ -6,6 +6,7 @@ const Password = (props) => {
         <label htmlFor='password'>
             Password:
             <input
+                id='password'
                 type='password'
                 name='password'
                 value={props.value}

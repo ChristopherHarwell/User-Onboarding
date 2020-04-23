@@ -2,7 +2,7 @@ import React from 'react';
 
 const Submit = (props) => {
     return (
-        <button>Submit</button>
+        <button disabled={props.disabled}>Submit</button>
     );
 };
 

@@ -5,6 +5,7 @@ const CheckBox = (props) => {
         <React.Fragment>
             <label htmlFor='checkbox'>
                 <input
+                    id='checkbox'
                     type='checkbox'
                     name='checkbox'
                     value={props.value}

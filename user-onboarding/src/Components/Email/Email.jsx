@@ -6,6 +6,7 @@ const Email = (props) => {
             <label htmlFor='email'>
                 Email:
                 <input
+                    id='email'
                     type='text'
                     name='email'
                     value={props.value}
