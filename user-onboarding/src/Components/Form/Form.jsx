@@ -25,6 +25,10 @@ const Form = (props) => {
         checkbox: false,
     })
 
+    // set initial user
+    const initialUser = [
+        { id: 124575, firstName: 'Chris', lastName: 'Harwell' },
+      ];
     // state for post requests
     const [users, setUsers] = useState([]);
 
@@ -63,22 +67,25 @@ const Form = (props) => {
     event.preventDefault();
     axios.post("https://reqres.in/api/users", formState)
         .then(res => {
-            setUsers(res.data);
-
+            // const response = res.data;
+            // setUsers({...users,
+            //     response
+            // });
+            users.push(setUsers(res.data))
             //clear state after submitting
-            setFormState({
-                name: '',
-                email: '',
-                password: '',
-                checkbox: '',
-            });
+            // setFormState({
+            //     name: '',
+            //     email: '',
+            //     password: '',
+            //     checkbox: '',
+            // })
 
-            console.log('success', users);
+            
         })
         .catch(err => console.error(err.res)
-    );
-  };
-
+    
+    )};
+    console.log('success', users);
   // submit button state
   const [buttonDisabled, setButtonDisabled] = useState(true);
 
@@ -93,7 +100,7 @@ const Form = (props) => {
         .then(valid => {
           setButtonDisabled(!valid);
         })
-  }, [formState]);
+  }, [formSchema]);
 
   // validate changes based on schema
   const validateChange = event => {
@@ -113,7 +120,16 @@ const Form = (props) => {
         });
   };
 
+
+    const loopUsers = () => {
+        for(let user of Object.entries(users)) {
+            return(
+            <pre>{JSON.stringify(users, null, 2)}</pre>
+            );
+        };
+    };
     return (
+        <React.Fragment>
         <form onSubmit={sumbitForm}> 
             <Name 
                 value={formState.name}
@@ -142,19 +158,24 @@ const Form = (props) => {
             />
             {
             // need to figure out what i need to map over
-            users.map(user => {
-                return(
-                    <pre>{JSON.stringify(user.name, null, 2)}</pre>
-                )
-                
-            })}
+            loopUsers()
+            // Object.getOwnPropertyNames(users)
+
+            }
             
             <Submit
                 value={formState.submit}
                 input={inputChanged}
                 disabled={buttonDisabled}
             />
+       { 
+       
+
+      console.log('users: ', users.name)
+      }
         </form>
+ 
+        </React.Fragment>
     );
 };
 
