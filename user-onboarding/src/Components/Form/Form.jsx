@@ -6,6 +6,7 @@ import Email from '../Email/Email';
 import Password from '../Password/Password';
 import CheckBox from '../TermsOfService/CheckBox';
 import Submit from '../SubmitButton/Submit';
+import Dropdown from '../Dropdown/Dropdown';
 
 const Form = (props) => {
       // Form State
@@ -13,6 +14,7 @@ const Form = (props) => {
         name: '',
         email: '',
         password: '',
+        role: '',
         checkbox: false,
         submit: '',
     });
@@ -23,14 +25,12 @@ const Form = (props) => {
         email: '',
         password: '',
         checkbox: false,
+        role: '',
     })
 
 
     // state for post requests
     const [users, setUsers] = useState([]);
-
-    // set initial user
-    const [initialUser, setInitialUser] = useState([...users]);
 
     // use yup to create form schema
     const formSchema = yup.object().shape({
@@ -44,6 +44,9 @@ const Form = (props) => {
         password: yup
                 .string()
                 .required('Please provide a valid password'),
+        role: yup
+                .string()
+                .required('please select a role'),
         checkbox: yup
                 .boolean()
                 .oneOf([true], 'Must agree to terms to continue'),
@@ -75,12 +78,12 @@ const Form = (props) => {
                 email: '',
                 password: '',
                 checkbox: '',
+                role: '',
             })
         })
         .catch(err => console.error(err.res)
     
     )};
-    
   // submit button state
   const [buttonDisabled, setButtonDisabled] = useState(true);
 
@@ -144,6 +147,10 @@ const userArray = Object.entries(users);
             {errors.password.length > 0 ? 
             (<p className='error'>{errors.password}</p>) 
             : null} 
+
+            <Dropdown
+                onChange={inputChanged}
+            />
             <CheckBox
                 value={formState.checkbox}
                 input={inputChanged}
